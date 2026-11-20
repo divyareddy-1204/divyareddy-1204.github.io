@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divyanjali Gundala Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE work: a builder's portfolio shown to a hiring team
+   IDEA an engineering datasheet for a transformer, the same kind of sheet the work is about
+   PICTURE the SpecCheck result itself: real spec lines mapped to the BOM, each with its status, plus a tally of every line
+   COLOUR cobalt title strip, white ground, black ink, pale cobalt zones, amber only for lines that need a human
+   TYPE Space Grotesk 600 titles, Inter text
+   LAYOUT cobalt strip with name and figures; full-width result sheet below; then case panels in a two-column grid; stacks under 600px */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0a0d18);--ink:light-dark(#0b0b0f,#e9ecf8);--soft:light-dark(#4a4f63,#a9b0c8);--zone:light-dark(#eef2ff,#141a30);--rule:light-dark(#d5dcf5,#26304f);--cob:#1240e0;--cobInk:light-dark(#1240e0,#7d9bff);--amb:light-dark(#b45a00,#ffb44d);--ambZone:light-dark(#fff1e0,#2c1f0c);--ok:light-dark(#1240e0,#7d9bff)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;font-weight:600;letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,5vw,52px)}
+h2{font-size:clamp(26px,3vw,34px);margin-bottom:12px}
+h3{font-size:20px;line-height:1.2;margin-bottom:8px}
+p{margin:0 0 12px;max-width:68ch}
+a{color:var(--cobInk)}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding-block:clamp(28px,4vw,64px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.strip{background:var(--cob);color:#fff}
+.strip a{color:#fff}
+.head{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:end}
+.lead{font-size:18px;color:#dfe6ff;margin-top:14px}
+.contact{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px;color:#dfe6ff}
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:1px;background:#3a63f0;border:1px solid #3a63f0}
+.fg{background:var(--cob);padding:14px 16px}
+.fg b{display:block;font:600 clamp(28px,3.4vw,40px)/1 "Space Grotesk",sans-serif;white-space:nowrap}
+.fg span{font-size:14px;color:#dfe6ff}
+.nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--rule)}
+.nav .wrap{display:flex;gap:4px;overflow-x:auto;padding:0 max(5vw,16px)}
+.nav a{flex:none;padding:14px 12px;text-decoration:none;color:var(--ink);font-weight:500;font-size:15px;min-height:44px}
+.nav a:hover,.nav a:focus-visible{color:var(--cobInk);outline:none;box-shadow:inset 0 -3px 0 var(--cob)}
+.sheetHead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-bottom:16px}
+.tally{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.u{width:22px;height:22px;border-radius:3px;background:var(--cob)}
+.u.f{background:var(--amb)}
+.tally small{margin-left:10px;font-size:14px;color:var(--soft)}
+.sheet{border:1px solid var(--rule)}
+.row{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(0,1.2fr) minmax(0,1.6fr);gap:16px;padding:12px 16px;border-top:1px solid var(--rule);align-items:start}
+.row:first-child{border-top:0;background:var(--zone);font-size:14px;font-weight:600;color:var(--soft)}
+.row.flag{background:var(--ambZone)}
+.src{font-size:15px}
+.src code{font:14px/1.4 ui-monospace,Menlo,monospace;color:var(--soft)}
+.item{font-size:15px}
+.item small{display:block;color:var(--soft);font-size:13px}
+.pill{display:inline-block;font-size:13px;font-weight:600;padding:2px 8px;border-radius:3px;white-space:nowrap;border:1px solid currentColor}
+.pill.ok{color:var(--ok)}
+.pill.fl{color:var(--amb)}
+.why{display:block;font-size:14px;color:var(--soft);margin-top:4px}
+.note{font-size:14px;color:var(--soft);margin-top:10px}
+.zone{background:var(--zone)}
+.route{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;margin:18px 0 8px;counter-reset:s}
+.st{position:relative;padding:14px 14px 14px 0}
+.st::before{content:"";display:block;height:6px;background:var(--cob);margin-bottom:12px}
+.st.h::before{background:var(--amb)}
+.st::after{content:"";position:absolute;top:-4px;right:-1px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--cob)}
+.st.h::after{border-color:var(--amb)}
+.st b{display:block;font-family:"Space Grotesk",sans-serif;font-size:17px;margin-bottom:4px}
+.st span{font-size:14px;color:var(--soft);display:block;padding-right:6px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.panel{background:var(--bg);border:1px solid var(--rule);padding:20px}
+.panel ul{margin:0;padding-left:18px}
+.panel li{margin-bottom:6px}
+.states{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.state{font:600 14px "Space Grotesk",sans-serif;padding:6px 10px;border:1px solid var(--cob);color:var(--cobInk);white-space:nowrap}
+.arrow{color:var(--soft)}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:24px;padding:22px 0;border-top:1px solid var(--rule)}
+.case:first-of-type{border-top:0}
+.ba{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 12px;align-items:center;font-size:14px}
+.bar{height:16px;background:var(--cob)}
+.bar.b{background:var(--rule)}
+.ba b{font:600 18px "Space Grotesk",sans-serif;white-space:nowrap;text-align:right}
+.big{font:600 clamp(36px,4.5vw,52px)/1 "Space Grotesk",sans-serif;color:var(--cobInk);white-space:nowrap}
+.chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px}
+.chain .state{border-color:var(--rule);color:var(--ink)}
+footer{border-top:1px solid var(--rule)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+@media(max-width:900px){.route{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:12px}}
+@media(max-width:720px){.head{grid-template-columns:minmax(0,1fr)}.grid2{grid-template-columns:minmax(0,1fr)}.case{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.row{grid-template-columns:minmax(0,1fr);gap:6px}.row:first-child{display:none}.route{grid-template-columns:repeat(2,minmax(0,1fr))}.u{width:18px;height:18px}}
+@media(prefers-reduced-motion:no-preference){.u{animation:pop .4s ease both}@keyframes pop{from{transform:scale(.3);opacity:0}}}
+</style>
+</head>
+<body>
+
+<header class="band strip">
+  <div class="wrap head">
+    <div>
+      <h1>Divyanjali Gundala</h1>
+      <p class="lead">I build the internal tools a transformer factory runs on. Trackers, dashboards and automations for about 60 engineers in the US and India, and now AI-assisted review with a human in charge.</p>
+      <div class="contact">
+        <span>Roanoke, VA</span>
+        <span>divyareddy.g1204@gmail.com</span>
+        <a href="https://www.linkedin.com/in/divyanjali-gundala">LinkedIn</a>
+        <span>Open to remote roles</span>
+      </div>
+    </div>
+    <div class="figs">
+      <div class="fg"><b>400+</b><span>transformer jobs tracked a year</span></div>
+      <div class="fg"><b>~60</b><span>engineers across 2 countries</span></div>
+      <div class="fg"><b>7–8h → 2h</b><span>weekly schedule check</span></div>
+      <div class="fg"><b>7 of 13</b><span>spec lines auto-cleared by SpecCheck</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a href="#speccheck">SpecCheck</a>
+    <a href="#how">How it works</a>
+    <a href="#vtc">Factory work</a>
+    <a href="#o2c">Order-to-cash</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="band" id="speccheck">
+  <div class="wrap">
+    <div class="sheetHead">
+      <div>
+        <h2>SpecCheck clears the standard lines and puts every deviation in front of a person</h2>
+        <p>A customer spec for a 2500 kVA padmount transformer, read against the standard accessory BOM. This is the actual output. <a href="https://github.com/divyareddy-1204/speccheck">See the code on GitHub</a>.</p>
+      </div>
+      <div class="tally" id="tally" aria-label="7 lines auto-cleared, 6 flagged for review"></div>
+    </div>
+    <div class="sheet" id="sheet"></div>
+    <p class="note">Sample data. The customer, spec and catalog numbers are fictional.</p>
+  </div>
+</section>
+
+<section class="band zone" id="how">
+  <div class="wrap">
+    <h2>Rules do the easy part, AI reads the messy part, people decide</h2>
+    <div class="route">
+      <div class="st"><b>Spec in</b><span>Text or PDF from sales</span></div>
+      <div class="st"><b>Rules</b><span>Known wording parsed the same way every time</span></div>
+      <div class="st"><b>AI</b><span>Maps paraphrased lines to catalog items</span></div>
+      <div class="st"><b>Guardrails</b><span>Quote must exist in the spec. ID must exist in the catalog</span></div>
+      <div class="st"><b>Compare</b><span>Qty, contacts, missing items</span></div>
+      <div class="st h"><b>Human review</b><span>Approval locked until every flag has a decision</span></div>
+    </div>
+    <div class="grid2" style="margin-top:20px">
+      <div class="panel">
+        <h3>When the AI gets it wrong</h3>
+        <ul>
+          <li>Quotes a line that isn't in the spec: confidence drops to zero and a person reviews it.</li>
+          <li>Invents a catalog ID: the line becomes unmapped.</li>
+          <li>Times out or returns junk: the app falls back to rules and shows a warning.</li>
+          <li>The AI never approves anything. It only decides what a person needs to look at.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>Every review has a lifecycle and an audit trail</h3>
+        <div class="states">
+          <span class="state">Draft</span><span class="arrow">→</span>
+          <span class="state">Extracted</span><span class="arrow">→</span>
+          <span class="state">In review</span><span class="arrow">→</span>
+          <span class="state">Approved</span><span class="arrow">or</span>
+          <span class="state">Returned</span>
+        </div>
+        <p style="margin-top:14px">No state can be skipped. Each change and each reviewer decision lands in an append-only log. Python, Streamlit, SQLite and the Claude API, with 20 automated tests. <a href="https://github.com/divyareddy-1204/speccheck">github.com/divyareddy-1204/speccheck</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="vtc">
+  <div class="wrap">
+    <h2>At Virginia Transformer, the slow part was always the handoff</h2>
+    <p>Engineering Data Analyst since Aug 2024. About 40 jobs a month move through electrical, controls and mechanical design across VTCR in the US and VTI in India.</p>
+
+    <div class="case">
+      <div>
+        <h3>A tracker that tells leads where to look</h3>
+        <p>Checking the next one to two weeks of targets took most of a day. I built an Excel tracker that colours each job red for critical, orange for act now and green for on track. Leads work the red and orange jobs first.</p>
+      </div>
+      <div>
+        <div class="ba">
+          <span>Before</span><div class="bar b" style="width:100%"></div><b>7 to 8 h</b>
+          <span>After</span><div class="bar" style="width:27%"></div><b>~2 h</b>
+        </div>
+        <p class="note">Hours per week spent verifying and rearranging schedule targets.</p>
+      </div>
+    </div>
+
+    <div class="case">
+      <div>
+        <h3>Mapping the review chain</h3>
+        <p>Electrical design feeds controls and mechanical review. Controls often starts early and checks against the design later. Handoffs broke because nobody could see current status or finish dates, so I built a shared status view and a recovery plan for late jobs.</p>
+      </div>
+      <div>
+        <div class="chain">
+          <span class="state">Electrical design</span><span class="arrow">→</span>
+          <span class="state">Controls review</span><span class="arrow">+</span>
+          <span class="state">Mechanical review</span><span class="arrow">→</span>
+          <span class="state">Release</span>
+        </div>
+        <p class="note">Controls can start ahead of electrical and verify later, so status has to be visible to both.</p>
+      </div>
+    </div>
+
+    <div class="case">
+      <div>
+        <h3>One timesheet instead of a weekly roll-up</h3>
+        <p>Engineers sent weekly reports and a supervisor copied them all into one sheet. A Power Automate form now writes every submission straight to that sheet.</p>
+      </div>
+      <div>
+        <h3>Dashboards managers actually open</h3>
+        <p>Power BI dashboards on engineering output, NCR trends and drawing revisions. All engineering managers and leads use them. A Streamlit and SQLite app pulls job tracking and NCR data into one place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band zone" id="o2c">
+  <div class="wrap grid2">
+    <div>
+      <h2>Before the factory, I worked on order-to-cash</h2>
+      <p>At Accenture (2021 to 2022) I supported SAP SD for several clients: sales orders, billing, outbound delivery and shipping. I kept customer master data, pricing and tax conditions clean so orders turned into correct invoices, and ran correction programs when they didn't.</p>
+    </div>
+    <div class="panel">
+      <h3>Education</h3>
+      <ul>
+        <li>PhD, Information Technology, data science and AI focus. University of the Cumberlands, 2026 to present</li>
+        <li>MS, Computer Science. University of Central Missouri, 2023</li>
+        <li>BTech, Electronics and Communication Engineering. Narayana Engineering College, 2021</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="band" id="contact">
+  <div class="wrap">
+    <div>
+      <h3>Get in touch</h3>
+      <p><a href="https://github.com/divyareddy-1204/speccheck">SpecCheck repository</a></p>
+      <p>divyareddy.g1204@gmail.com · Roanoke, VA · open to remote roles</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+{
+  const lines = [
+    ["4.1 Liquid level gauge with one set of alarm contacts (Form C).","Liquid level gauge","STD-LLG-100","fl","Attribute mismatch","Spec wants 1 contact set, standard has 0"],
+    ["4.2 Dial thermometer for top oil temperature with two sets of SPDT contacts.","Liquid temperature gauge","STD-LTG-210","fl","Attribute mismatch","Spec wants 2 contact sets, standard has 0"],
+    ["4.3 Pressure vacuum gauge with bleeder valve.","Pressure vacuum gauge","STD-PVG-305","ok","Match",""],
+    ["4.4 Pressure relief device with alarm contact and semaphore indicator.","Pressure relief device","STD-PRD-410","fl","Attribute mismatch","Spec wants 1 contact set, standard has 0"],
+    ["4.5 One inch drain valve with sampling device.","Drain valve with sampler","STD-DRV-520","ok","Match",""],
+    ["4.6 Rapid pressure rise relay with seal-in relay panel.","Unmapped requirement","","fl","Not in catalog","No standard item. Engineering defines it"],
+    ["4.7 Four (4) ground pads, stainless steel.","Ground pads","STD-GND-970","fl","Qty mismatch","Spec qty 4, standard qty 2"],
+    ["4.8 Bayonet fuses in series with partial range current limiting fuses, three (3).","Bayonet fuse with CLF","STD-BAY-640","ok","Match",""],
+    ["4.9 Two-position loadbreak switch, oil immersed.","Load break switch","STD-LBS-750","ok","Match",""],
+    ["4.10 Surge arresters, 10 kV MOV elbow type, quantity three (3).","Unmapped requirement","","fl","Not in catalog","No standard item. Engineering defines it"],
+    ["5.1 Laser-etched stainless steel nameplate per ANSI C57.12.00.","Nameplate","STD-NPL-980","ok","Match",""],
+    ["Not mentioned in spec","Fill plug and filter valve","STD-FIL-530","ok","Standard","Ships as standard"],
+    ["Not mentioned in spec","De-energized tap changer","STD-DTC-860","ok","Standard","Ships as standard"]
+  ];
+  const esc = s => s.replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  const head = '<div class="row"><div>Customer spec line</div><div>Standard BOM item</div><div>Result</div></div>';
+  document.getElementById("sheet").innerHTML = head + lines.map(l =>
+    `<div class="row${l[3]==="fl"?" flag":""}">
+      <div class="src">${l[0].startsWith("Not")?`<code>${esc(l[0])}</code>`:esc(l[0])}</div>
+      <div class="item">${esc(l[1])}${l[2]?`<small>${l[2]}</small>`:""}</div>
+      <div><span class="pill ${l[3]}">${l[3]==="fl"?"Needs review":"Auto-cleared"}</span> <span class="pill ${l[3]}">${esc(l[4])}</span>${l[5]?`<span class="why">${esc(l[5])}</span>`:""}</div>
+    </div>`).join("");
+  const ok = lines.filter(l => l[3]==="ok").length, fl = lines.length - ok;
+  document.getElementById("tally").innerHTML =
+    lines.map((l,i) => `<span class="u${l[3]==="fl"?" f":""}" style="animation-delay:${i*40}ms"></span>`).sort((a,b)=>a.includes(" f")-b.includes(" f")).join("") +
+    `<small>${ok} auto-cleared · ${fl} need a person</small>`;
+}
+</script>
+</body>
+</html>
